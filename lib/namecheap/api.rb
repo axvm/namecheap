@@ -4,7 +4,8 @@ module Namecheap
   class Api
     SANDBOX = 'https://api.sandbox.namecheap.com/xml.response'
     PRODUCTION = 'https://api.namecheap.com/xml.response'
-    ENVIRONMENT = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : (ENV["RACK_ENV"] || 'development')
+    #ENVIRONMENT = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : (ENV["RACK_ENV"] || 'development')
+    ENVIRONMENT = ENV["APP_ENV"] == 'production' ? 'production' : 'development'
     ENDPOINT = (ENVIRONMENT == 'production' ? PRODUCTION : SANDBOX)
 
     def get(command, options = {})
@@ -33,13 +34,13 @@ module Namecheap
       case method
       when 'get'
         #raise options.inspect
-        HTTParty.get(ENDPOINT, { :query => options})
+        HTTParty.get(ENDPOINT, { :query => options}, timeout: 500)
       when 'post'
-        HTTParty.post(ENDPOINT, { :query => options})
+        HTTParty.post(ENDPOINT, { :query => options}, timeout: 500)
       when 'put'
-        HTTParty.put(ENDPOINT, { :query => options})
+        HTTParty.put(ENDPOINT, { :query => options}, timeout: 500)
       when 'delete'
-        HTTParty.delete(ENDPOINT, { :query => options})
+        HTTParty.delete(ENDPOINT, { :query => options}, timeout: 500)
       end
     end
 
