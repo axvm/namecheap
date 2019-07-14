@@ -34,13 +34,13 @@ module Namecheap
       case method
       when 'get'
         #raise options.inspect
-        HTTParty.get(ENDPOINT, { :query => options}, timeout: 500)
+        HTTParty.get(ENDPOINT, { :query => options, timeout: 500})
       when 'post'
-        HTTParty.post(ENDPOINT, { :query => options}, timeout: 500)
+        HTTParty.post(ENDPOINT, { :query => options, timeout: 500})
       when 'put'
-        HTTParty.put(ENDPOINT, { :query => options}, timeout: 500)
+        HTTParty.put(ENDPOINT, { :query => options, timeout: 500})
       when 'delete'
-        HTTParty.delete(ENDPOINT, { :query => options}, timeout: 500)
+        HTTParty.delete(ENDPOINT, { :query => options, timeout: 500})
       end
     end
 
